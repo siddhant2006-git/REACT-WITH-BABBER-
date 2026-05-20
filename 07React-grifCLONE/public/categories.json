@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "name": "Reactions",
+      "name_encoded": "reactions",
+      "subcategories": [
+        {
+          "name": "abandon thread",
+          "name_encoded": "abandon-thread"
+        },
+        {
+          "name": "agree",
+          "name_encoded": "agree"
+        },
+        {
+          "name": "amused",
+          "name_encoded": "amused"
+        },
+        {
+          "name": "angry",
+          "name_encoded": "angry"
+        },
+        {
+          "name": "applause",
