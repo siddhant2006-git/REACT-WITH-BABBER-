@@ -8,8 +8,8 @@ const GifProvider = ({ children }) => {
   const [favorite, setFavorite] = useState([]);
   const [gif, setGif] = useState([]);
 
-  const gf = new GiphyFetch(import.meta.env.VITE_GIPHY_API_KEY);
-  console.log(gf);
+  const gf = new GiphyFetch(import.meta.env.VITE_API_KEY);
+  console.log(import.meta.env.VITE_API_KEY);
 
   return (
     <GifContext.Provider

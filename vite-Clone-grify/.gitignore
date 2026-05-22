@@ -23,7 +23,12 @@ dist-ssr
 *.sln
 *.sw?
 .env
-.env.*.local
-*.pem
+.env.local
+
+
+
+
+
+
 
 
