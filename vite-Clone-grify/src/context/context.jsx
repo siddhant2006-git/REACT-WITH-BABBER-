@@ -9,7 +9,7 @@ const GifProvider = ({ children }) => {
   const [gif, setGif] = useState([]);
 
   const gf = new GiphyFetch(import.meta.env.VITE_API_KEY);
-  console.log(import.meta.env.VITE_API_KEY);
+  console.log(gf);
 
   return (
     <GifContext.Provider

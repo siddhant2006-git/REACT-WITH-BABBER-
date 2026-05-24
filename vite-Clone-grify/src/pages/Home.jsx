@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { GifState } from "../context/context";
 
 function Home() {
-  const { gf, filter, setGif } = GifState();
+  const { gf, filter, setGif,gifs } = GifState();
 
   const fetchTrendingGif = async () => {
     try {
@@ -29,8 +29,12 @@ function Home() {
       <img
         src="/banner.gif"
         alt="banner"
-        className="w-full rounded-lg"
+        className="mt-2 rounded-lg w-full"
       />
+      {/* <filterGif/> */}
+      <div>
+        <gifs/>
+      </div>
     </div>
   );
 }

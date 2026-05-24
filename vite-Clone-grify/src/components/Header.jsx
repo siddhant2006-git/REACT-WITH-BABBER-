@@ -14,10 +14,16 @@ function Header() {
     const fetchGifCategory = async () => {
       try {
         const { data } = await gf.categories();
-        console.log("Category data:", data);
+        // console.log("Category data:", data);
+
+        // JSon.stringify the data to see the structure of text clearly in the console
+        const textData = JSON.stringify(data);
+        console.log("Category text data:", textData);
+        
         setCategory(data);
       } catch (error) {
         console.log("Category fetch error:", error);
+
       }
     };
 
