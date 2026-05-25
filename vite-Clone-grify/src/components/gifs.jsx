@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+// hover can be use to change the style of an element  and pointer of mouse goes over it
 const Gif = ({ gif, hover = true }) => {
   return (
     <Link to={`/${gif.type}s/${gif.slug}`} key={gif.id}>

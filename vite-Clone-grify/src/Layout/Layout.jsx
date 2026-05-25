@@ -6,7 +6,7 @@ import Header from "../components/Header";
 function Layout() {
   return (
     <div className="bg-gray-900 text-white min-h-screen">
-      <diV className="container mx-auto px-4"></diV>
+      <div className="container mx-auto px-4"></div>
       <main>
         <Header />
         <Outlet />

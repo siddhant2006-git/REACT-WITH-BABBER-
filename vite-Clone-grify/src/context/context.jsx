@@ -1,6 +1,8 @@
 import  { createContext, useContext, useState } from "react";
 import { GiphyFetch } from "@giphy/js-fetch-api";
 
+// useContext-multicomponents me share karna ka context . 
+// createcontext-data ko gobal box create ma karta hai.
 const GifContext = createContext();
 
 const GifProvider = ({ children }) => {
@@ -20,7 +22,7 @@ const GifProvider = ({ children }) => {
         favorite,
         setFavorite,
         filter,
-        setFilter,
+        setFilter,                         
       }}
     >
       {children}

@@ -1,4 +1,8 @@
 /* eslint-disable react-hooks/static-components */
+
+// usestate-this hook is used to data stored and the set of value and update value .
+//useEffect-this hook is used props component can change it the run work it .
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { HiMenuAlt2 } from "react-icons/hi";

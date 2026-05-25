@@ -9,6 +9,7 @@ import Single_gif from "./pages/Single_gif";
 import GifProvider from "./context/context";
 
 function App() {
+  // create-browser-Router- it is function of dom which are render(change) the page/ components.
   const router = createBrowserRouter([
     {
       path: "/",
@@ -33,6 +34,8 @@ function App() {
       ],
     },
   ]);
+
+  // RouterProvider- it is the component of dom which are router connect to router app .
 
   return (
     <GifProvider>
