@@ -1,110 +1,103 @@
-/* eslint-disable react-hooks/static-components */
-
-// usestate-this hook is used to data stored and the set of value and update value .
-//useEffect-this hook is used props component can change it the run work it .
-
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { HiMenuAlt2 } from "react-icons/hi";
+import { useEffect, useState } from "react";
 import { GifState } from "../context/context";
+import GifSearch from "./gifs-search";
+import { Link } from "react-router-dom";
+import { HiEllipsisVertical, HiMiniBars3BottomRight } from "react-icons/hi2";
 
-function Header() {
-  const [category, setCategory] = useState([]);
-  const [showCategory, setShowCategory] = useState(true);
+const Header = () => {
+  const [categories, setCategories] = useState([]);
+  const [showCategories, setShowCategories] = useState(false);
 
-  const { gf } = GifState();
+  const { filter, setFilter, favorite } = GifState();
 
-  useEffect(() => {
-    const fetchGifCategory = async () => {
-      try {
-        const { data } = await gf.categories();
-        // console.log("Category data:", data);
-
-        // JSon.stringify the data to see the structure of text clearly in the console
-        const textData = JSON.stringify(data);
-        console.log("Category text data:", textData);
-        
-        setCategory(data);
-      } catch (error) {
-        console.log("Category fetch error:", error);
-
-      }
-    };
-
-    if (gf) {
-      fetchGifCategory();
-    }
-  }, [gf]);
-
-  const CategoryList = () => {
-    if (!Array.isArray(category)) {
-      return (
-        <div className="text-sm text-red-300">
-          Invalid category payload: {JSON.stringify(category)}
-        </div>
-      );
-    }
-
-    if (category.length === 0) {
-      return (
-        <div className="text-sm text-slate-300">Loading categories...</div>
-      );
-    }
-
-    return (
-      <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {category.map((item) => {
-          const key = item.name_encoded || item.name;
-          const imageUrl = item.gif?.images?.preview_gif?.url;
-
-          return (
-            <Link
-              key={key}
-              to={`/search/${encodeURIComponent(item.name_encoded || item.name)}`}
-              className="block rounded-xl overflow-hidden bg-slate-800 hover:bg-slate-700 transition-colors"
-            >
-              {imageUrl ? (
-                <img
-                  src={imageUrl}
-                  alt={item.name}
-                  className="h-32 w-full object-cover"
-                />
-              ) : (
-                <div className="h-32 w-full bg-slate-700 flex items-center justify-center text-slate-300">
-                  {item.name}
-                </div>
-              )}
-              <div className="p-3">
-                <div className="text-sm font-semibold text-white">{item.name}</div>
-                <div className="text-xs text-slate-400">{item.subcategories?.length ?? 0} subcategories</div>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
-    );
+  const fetchGifCategories = async () => {
+    const res = await fetch("/categories.json");
+    const { data } = await res.json();
+    // console.log(data)
+    setCategories(data);
   };
 
-  return (
-    <section className="py-4 px-4">
-      <div className="mb-4 flex items-center justify-between">
-        <div>
-          <h2 className="text-xl font-bold text-white">Categories</h2>
-          <p className="text-sm text-slate-400">Browse GIF categories from Giphy.</p>
-        </div>
-        <button
-          type="button"
-          onClick={() => setShowCategory((prev) => !prev)}
-          className="inline-flex items-center gap-2 rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 text-sm text-slate-100 hover:border-slate-400"
-        >
-          <HiMenuAlt2 className="h-4 w-4" />
-          {showCategory ? "Hide" : "Show"}
-        </button>
-      </div>
+  // const fetchGifCategories = async () => {
+  //   const {data} = await gf.categories();
+  //   setCategories(data);
+  // };
 
-      {showCategory && <CategoryList />}
-    </section>
+  useEffect(() => {
+    fetchGifCategories()
+    
+  }, []);
+
+  return (
+    <nav>
+      <div className="relative flex gap-4 justify-between items-center mb-2">
+        <Link to={"/"} className="flex gap-2">
+          <img src="/logo.svg" alt="Giphy Logo" className="w-8" />
+          <h1 className="text-5xl font-bold tracking-tight cursor-pointer">
+            GIPHY
+          </h1>
+        </Link>
+
+        <div className="font-bold text-md flex gap-2 items-center">
+          {categories?.slice(0, 5).map((category) => {
+            return (
+              <Link
+                className="px-4 py-1 transition ease-in-out hover:gradient border-b-4 hidden lg:block"
+                key={category.name}
+                to={`/${category.name_encoded}`}
+              >
+                {category.name}
+              </Link>
+            );
+          })}
+
+          <button onClick={() => setShowCategories(!showCategories)}>
+            <HiEllipsisVertical
+              size={35}
+              className={`py-0.5 transition ease-in-out hover:gradient ${showCategories ? "gradient" : ""
+                } border-b-4 cursor-pointer hidden lg:block`}
+            />
+          </button>
+
+          {favorite.length > 0 && (
+            <div className="h-9 bg-gray-700 pt-1.5 px-6 cursor-pointer rounded">
+              <Link to="/favorites">Favorite GIFs</Link>
+            </div>
+          )}
+
+          {/* -- Mobile UI -- */}
+          <button onClick={() => setShowCategories(!showCategories)}>
+            <HiMiniBars3BottomRight
+              className="text-sky-400 block lg:hidden"
+              size={30}
+            />
+          </button>
+          {/* -- Mobile UI -- */}
+        </div>
+
+        {showCategories && (
+          <div className="absolute right-0 top-14 px-10 pt-6 pb-9 w-full gradient z-20">
+            <span className="text-3xl font-extrabold">Categories</span>
+            <hr className="bg-gray-100 opacity-50 my-5" />
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+              {categories?.map((category) => {
+                return (
+                  <Link
+                    onClick={() => setShowCategories(false)}
+                    className="transition ease-in-out font-bold"
+                    key={category.name}
+                    to={`/${category.name_encoded}`}
+                  >
+                    {category.name}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </div>
+      <GifSearch filter={filter} setFilter={setFilter} />
+    </nav>
   );
-}
+};
 
 export default Header;

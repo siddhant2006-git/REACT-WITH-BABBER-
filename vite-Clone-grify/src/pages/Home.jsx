@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { GifState } from "../context/context";
 import FilterGif from "../components/filter-gif";
-import Gif from "../components/gifs";
+import Gif from "../components/Gif";
+import GifSearch from "../components/gifs-search";
 
 function Home() {
   const { gf, filter, setGif, gif } = GifState();
@@ -34,6 +35,7 @@ function Home() {
         className="mt-2 rounded-lg w-full"
       />
       <FilterGif showTrending />
+      <GifSearch/>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mt-4">
         {gif.length > 0 ? (

@@ -1,111 +1,24 @@
+
+
+import { HiMiniArrowTrendingUp } from "react-icons/hi2";
 import { GifState } from "../context/context";
 
-const categories = [
+const filters = [
   {
-    name: "Actions",
-    name_encoded: "actions",
-    subcategories: [
-      {
-        name: "breaking up",
-        name_encoded: "breaking-up",
-      },
-      {
-        name: "cooking",
-        name_encoded: "cooking",
-      },
-      {
-        name: "crying",
-        name_encoded: "crying",
-      },
-      {
-        name: "dancing",
-        name_encoded: "dancing",
-      },
-      {
-        name: "dreaming",
-        name_encoded: "dreaming",
-      },
-      {
-        name: "drinking",
-        name_encoded: "drinking",
-      },
-      {
-        name: "eating",
-        name_encoded: "eating",
-      },
-      {
-        name: "fainting",
-        name_encoded: "fainting",
-      },
-      {
-        name: "falling",
-        name_encoded: "falling",
-      },
-      {
-        name: "fighting",
-        name_encoded: "fighting",
-      },
-      {
-        name: "finger guns",
-        name_encoded: "finger-guns",
-      },
-      {
-        name: "flirting",
-        name_encoded: "flirting",
-      },
-      {
-        name: "laughing",
-        name_encoded: "laughing",
-      },
-      {
-        name: "pout",
-        name_encoded: "pout",
-      },
-      {
-        name: "running",
-        name_encoded: "running",
-      },
-      {
-        name: "singing",
-        name_encoded: "singing",
-      },
-      {
-        name: "slapping",
-        name_encoded: "slapping",
-      },
-      {
-        name: "sleeping",
-        name_encoded: "sleeping",
-      },
-      {
-        name: "smiling",
-        name_encoded: "smiling",
-      },
-      {
-        name: "smoking",
-        name_encoded: "smoking",
-      },
-      {
-        name: "sneezing",
-        name_encoded: "sneezing",
-      },
-      {
-        name: "spinning",
-        name_encoded: "spinning",
-      },
-      {
-        name: "swimming",
-        name_encoded: "swimming",
-      },
-      {
-        name: "tossing drink",
-        name_encoded: "tossing-drink",
-      },
-      {
-        name: "waiting",
-        name_encoded: "waiting",
-      },
-    ],
+    title: "GIFs",
+    value: "gifs",
+    background:
+      "bg-gradient-to-tr from-purple-500 via-purple-600 to-purple-500",
+  },
+  {
+    title: "Stickers",
+    value: "stickers",
+    background: "bg-gradient-to-tr from-teal-500 via-teal-600 to-teal-500",
+  },
+  {
+    title: "Text",
+    value: "text",
+    background: "bg-gradient-to-tr from-blue-500 via-blue-600 to-blue-500",
   },
 ];
 
@@ -114,30 +27,33 @@ const FilterGif = ({ alignLeft = false, showTrending = false }) => {
 
   return (
     <div
-      className={`flex flex-wrap gap-3 my-4 ${alignLeft ? "justify-start" : "justify-center"
+      className={`flex my-3 gap-3 ${alignLeft ? "" : "justify-end"} ${showTrending
+          ? "flex-col sm:flex-row sm:items-center justify-between "
+          : ""
         }`}
     >
       {showTrending && (
-        <button
-          onClick={() => setFilter("trending")}
-          className="px-4 py-2 rounded-full bg-purple-600 text-white font-semibold"
-        >
-          Trending
-        </button>
+        <span className="flex gap-2">
+          {showTrending && (
+            <HiMiniArrowTrendingUp size={25} className="text-teal-400" />
+          )}
+          <span className="font-semibold text-gray-400">Trending</span>
+        </span>
       )}
-
-      {categories[0].subcategories.map((item) => (
-        <button
-          key={item.name_encoded}
-          onClick={() => setFilter(item.name_encoded)}
-          className={`px-4 py-2 rounded-full capitalize font-semibold transition ${filter === item.name_encoded
-              ? "bg-blue-600 text-white"
-              : "bg-gray-800 text-gray-200 hover:bg-gray-700"
-            }`}
-        >
-          {item.name}
-        </button>
-      ))}
+      <div className="flex min-w-80 rounded-full bg-gray-800">
+        {filters.map((f) => {
+          return (
+            <span
+              onClick={() => setFilter(f.value)}
+              className={`${filter === f.value ? f.background : ""
+                } font-semibold py-2 w-1/3 text-center rounded-full cursor-pointer `}
+              key={f.title}
+            >
+              {f.title}
+            </span>
+          );
+        })}
+      </div>
     </div>
   );
 };
