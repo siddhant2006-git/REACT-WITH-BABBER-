@@ -8,7 +8,8 @@ import Favarious from "./pages/Favarious";
 import Single_gif from "./pages/Single_gif";
 import Categories from "./pages/Categories";
 import GifProvider from "./context/context";
-import { IoLogIn } from "react-icons/io5";
+import Login from "./pages/login";
+import { SignUp } from "@clerk/clerk-react";
 
 
 
@@ -23,15 +24,20 @@ function App() {
           path: "/",
           element: <Home />,
         },
+        {
+          path: "../login",
+          element: <Login />
+        },
+        {
+          path: "/signup",
+          element: <SignUp />
+        },
       
         {
           path: "/search/:query",
           element: <Search />,
         },
-        {
-          path: "../login",
-          element:<IoLogIn/>
-        },
+    
       
         {
           path: "favarious",
