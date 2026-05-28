@@ -75,18 +75,36 @@ const GifPage = () => {
     }
   };
 
-  const EmbedGif = async () => {
+  const DownloadGif = async () => {
     try {
-      const embedCode = `<iframe src="${gif?.embed_url}" width="480" height="270" frameBorder="0" allowFullScreen></iframe>`;
+      const gifUrl =
+        gif?.images?.original?.url ||
+        gif?.images?.fixed_height?.url ||
+        gif?.images?.downsized?.url;
 
-      await navigator.clipboard.writeText(embedCode);
+      if (!gifUrl) {
+        alert("GIF not found");
+        return;
+      }
 
-      alert("Embed code copied to clipboard!");
+      const response = await fetch(gifUrl);
+      const blob = await response.blob();
+
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${gif?.title || "download-gif"}.gif`;
+      document.body.appendChild(a);
+      a.click();
+
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
     } catch (error) {
-      console.log("Error copying embed code:", error);
+      console.log("Error downloading GIF:", error);
+      alert("Could not download GIF");
     }
   };
-
   return (
     <div className="grid grid-cols-4 my-10 gap-4">
       <div className="hidden sm:block">
@@ -192,11 +210,11 @@ const GifPage = () => {
               Share
             </button>
             <button
-              onClick={EmbedGif} // Assignment
+              onClick={DownloadGif} // Assignment
               className="flex gap-5 items-center font-bold text-lg"
             >
               <IoCodeSharp size={30} />
-              Embed
+              Download
             </button>
           </div>
         </div>
