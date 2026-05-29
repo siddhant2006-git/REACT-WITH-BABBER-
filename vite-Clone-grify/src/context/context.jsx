@@ -12,7 +12,7 @@ const GifProvider = ({ children }) => {
 
   const gf = new GiphyFetch(import.meta.env.VITE_API_KEY);
   
-
+// include -this function is use to check the value present or string or array me present or not.
   const addToFavorites = (gifId) => {
     if (favorites.includes(gifId)) {
       setFavorites(favorites.filter((id) => id !== gifId));

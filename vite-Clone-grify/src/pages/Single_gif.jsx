@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 // Context & Components
 import { GifState } from "../context/context";
 import Gif from "../components/Gif";
-import FollowOn from "../components/Follow";
+
 
 // Icons
 import { FiArrowDownCircle } from "react-icons/fi";
@@ -15,16 +15,16 @@ import { IoCodeSharp } from "react-icons/io5";
 const CONTENT_TYPES = ["gifs", "stickers", "texts"];
 
 const GifPage = () => {
-  // ── Router & Context ────────────────────────────────
+  // Router & Context 
   const { type, slug } = useParams();
   const { gf, addToFavorites, favorites } = GifState();
 
-  // ── State ────────────────────────────────────────────
+  // State
   const [gif, setGif] = useState({});
   const [relatedGifs, setRelatedGifs] = useState([]);
   const [readMore, setReadMore] = useState(false);
 
-  // ── Data Fetching ─────────────────────────────────────
+  //  Data Fetching 
   useEffect(() => {
     if (!CONTENT_TYPES.includes(type)) {
       throw new Error("Invalid Content Type");
@@ -131,7 +131,7 @@ const GifPage = () => {
           </>
         )}
 
-        <FollowOn />
+      
         <div className="divider" />
 
         {/* Source link */}

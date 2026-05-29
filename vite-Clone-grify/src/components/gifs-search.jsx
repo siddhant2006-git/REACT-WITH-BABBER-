@@ -1,5 +1,5 @@
 
-
+// useNavigate is hook from react-router-dom that allows the click button can change the url and navigate to the new page without refreshing the page
 import { useState } from "react";
 import { HiMiniXMark, HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
