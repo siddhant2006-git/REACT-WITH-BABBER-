@@ -1,12 +1,14 @@
 
 import './App.css';
+import Header from './components/Header/MainNav';
 
 function App() {
   return (
-    <div className="App">
-      <span>Entertaiment</span>
-
+    <>
+      <div className="App">
+        <Header />
       </div>
+    </>
   );
 }
 
